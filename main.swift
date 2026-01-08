@@ -39,7 +39,7 @@ func askNonEmpty(_ text: String) -> String {
     while true {
         let s = ask(text)
         if !s.isEmpty { return s }
-        print("❌ Cannot be empty.\n")
+        print(" Cannot be empty.\n")
     }
 }
 
@@ -75,11 +75,11 @@ func addContact() {
         let phone = raw.filter { !$0.isWhitespace }
 
         if phone.isEmpty {
-            print("❌ Phone cannot be empty.\n")
+            print(" Phone cannot be empty.\n")
             continue
         }
         if usedPhones.contains(phone) {
-            print("❌ Already exists!\n")
+            print(" Already exists!\n")
             continue
         }
 
@@ -101,17 +101,17 @@ func addContact() {
     let c = Contact(id: nextId, name: name, email: email, phones: phones, tags: tags)
     nextId += 1
     insert(c)
-    print("✅ Added.\n")
+    print(" Added.\n")
 }
 
 func listContacts() {
-    if list.isEmpty { print("ℹ️ No contacts.\n"); return }
+    if list.isEmpty { print(" No contacts.\n"); return }
     list.forEach { print($0.line()) }
     print()
 }
 
 func findContacts() {
-    if list.isEmpty { print("ℹ️ No contacts.\n"); return }
+    if list.isEmpty { print(" No contacts.\n"); return }
     let q = askNonEmpty("Search (name/email/phone): ").lowercased()
 
     let results = list.filter { c in
@@ -121,7 +121,7 @@ func findContacts() {
         return nameHit || emailHit || phoneHit
     }
 
-    if results.isEmpty { print("ℹ️ No matches.\n"); return }
+    if results.isEmpty { print(" No matches.\n"); return }
     results.forEach { print($0.line()) }
     print()
 }
@@ -147,7 +147,7 @@ func editContact() {
         while true {
             let raw = askNonEmpty("Phone: ")
             let phone = raw.filter { !$0.isWhitespace }
-            if phone.isEmpty { print("❌ Phone cannot be empty.\n"); continue }
+            if phone.isEmpty { print(" Phone cannot be empty.\n"); continue }
             if usedPhones.contains(phone) { print("Already exists!\n"); continue }
 
             let label = (askOpt("Label (enter=mobile): ") ?? "mobile").lowercased()
@@ -168,7 +168,7 @@ func editContact() {
     }
 
     update(c)
-    print("✅ Updated.\n")
+    print(" Updated.\n")
 }
 
 func deleteContact() {
@@ -176,7 +176,7 @@ func deleteContact() {
     c.phones.forEach { usedPhones.remove($0.0) }
     byId.removeValue(forKey: id)
     list.removeAll { $0.id == id }
-    print("🗑️ Deleted.\n")
+    print(" Deleted.\n")
 }
 
 // ---------- Menu ----------
